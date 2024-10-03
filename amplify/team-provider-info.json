@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-inventorymanagement-dev-b7db8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::665097206693:role/amplify-inventorymanagement-dev-b7db8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::665097206693:role/amplify-inventorymanagement-dev-b7db8-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-inventorymanagement-dev-b7db8-deployment",
+      "UnauthRoleName": "amplify-inventorymanagement-dev-b7db8-unauthRole",
+      "StackName": "amplify-inventorymanagement-dev-b7db8",
+      "StackId": "arn:aws:cloudformation:us-west-2:665097206693:stack/amplify-inventorymanagement-dev-b7db8/768481d0-7f88-11ef-a6e5-062aca09bfb9",
+      "AmplifyAppId": "d3li02999ajjes"
+    },
+    "categories": {
+      "auth": {
+        "inventorymanagementbe4c6a29": {}
+      },
+      "api": {
+        "inventorymanagement": {}
+      }
+    }
+  }
+}
