@@ -5,7 +5,6 @@ import { Item } from "../models"; // Adjust path as needed
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { ModelInit } from "@aws-amplify/datastore";
 import { Box, Button, Input, TextField, Typography } from "@mui/material";
-import { itemService } from "../services/ItemService";
 import { useAppDispatch } from "../store/hooks";
 import { addItem, updateItem } from "../features/inventory/inventorySlice";
 
@@ -30,7 +29,9 @@ const ItemForm: React.FC<ItemFormProps> = ({ selectedItem, onClear }) => {
   useEffect(() => {
     if (selectedItem) {
       setName(selectedItem.name);
+      console.log("setting quantity");
       setQuantity(selectedItem.quantity);
+      console.log("QUANTITY selected item", selectedItem.quantity);
       setImageUrl(selectedItem.thumbnailUrl || "");
       setImagePreview(selectedItem.thumbnailUrl || null);
     } else {
@@ -93,11 +94,13 @@ const ItemForm: React.FC<ItemFormProps> = ({ selectedItem, onClear }) => {
     const itemData: ModelInit<Item> = {
       name,
       quantity,
-      thumbnailUrl: imagePreview || imageUrl,
+      thumbnailUrl: imagePreview ?? imageUrl,
     };
 
     if (selectedItem) {
-      dispatch(updateItem(selectedItem));
+      dispatch(updateItem({ ...selectedItem, ...itemData }));
+      console.log("updated item", selectedItem);
+      console.log("QUANTITY item", quantity);
       onClear();
     } else {
       dispatch(addItem(new Item(itemData)));
