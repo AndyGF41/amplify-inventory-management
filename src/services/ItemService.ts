@@ -8,6 +8,7 @@ class ItemService {
       const item = new Item({
         name: newItem.name,
         quantity: newItem.quantity,
+        thumbnailUrl: newItem.thumbnailUrl,
         // Do NOT include createdAt or updatedAt here
       });
       const createdItem = await DataStore.save(item);

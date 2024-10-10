@@ -13,6 +13,7 @@ export const onCreateItem = /* GraphQL */ `subscription OnCreateItem($filter: Mo
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename
@@ -27,6 +28,7 @@ export const onUpdateItem = /* GraphQL */ `subscription OnUpdateItem($filter: Mo
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename
@@ -41,6 +43,7 @@ export const onDeleteItem = /* GraphQL */ `subscription OnDeleteItem($filter: Mo
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename

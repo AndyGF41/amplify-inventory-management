@@ -13,6 +13,7 @@ export const getItem = /* GraphQL */ `query GetItem($id: ID!) {
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename
@@ -29,6 +30,7 @@ export const listItems = /* GraphQL */ `query ListItems(
       id
       name
       quantity
+      thumbnailUrl
       createdAt
       updatedAt
       __typename

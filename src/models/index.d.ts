@@ -14,6 +14,7 @@ type EagerItem = {
   readonly id: string;
   readonly name: string;
   readonly quantity: number;
+  readonly thumbnailUrl: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -26,6 +27,7 @@ type LazyItem = {
   readonly id: string;
   readonly name: string;
   readonly quantity: number;
+  readonly thumbnailUrl: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
