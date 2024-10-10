@@ -16,6 +16,7 @@ export const createItem = /* GraphQL */ `mutation CreateItem(
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename
@@ -33,6 +34,7 @@ export const updateItem = /* GraphQL */ `mutation UpdateItem(
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename
@@ -50,6 +52,7 @@ export const deleteItem = /* GraphQL */ `mutation DeleteItem(
     id
     name
     quantity
+    thumbnailUrl
     createdAt
     updatedAt
     __typename

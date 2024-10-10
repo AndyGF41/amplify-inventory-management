@@ -1,84 +1,99 @@
 import React, { useEffect, useState } from "react";
-import { generateClient } from "@aws-amplify/api";
-import { graphqlOperation } from "@aws-amplify/api-graphql";
 
-import { listItems } from "../graphql/queries";
-import { createItem } from "../graphql/mutations";
-
-interface Item {
-  id: number;
-  name: string;
-  quantity: number;
-}
-const client = generateClient();
+import ItemForm from "./ItemForm";
+import ItemList from "./ItemList";
+import { Item } from "../models";
+import { itemService } from "../services/ItemService";
+import { DataStore } from "@aws-amplify/datastore";
+import { Container, Typography } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import {
+  fetchItems,
+  addItem,
+  updateItem,
+  deleteItem,
+} from "../features/inventory/inventorySlice";
 
 const Inventory: React.FC = () => {
-  const [items, setItems] = useState<Item[]>([]);
-  const [itemName, setItemName] = useState("");
-  const [itemQuantity, setItemQuantity] = useState(0);
+  // const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  // const [items, setItems] = useState<Item[]>([]);
+
+  const dispatch = useAppDispatch();
+  const { items, loading, error } = useAppSelector((state) => state.inventory);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    dispatch(fetchItems());
+  }, [dispatch]);
 
-  const fetchItems = async () => {
-    try {
-      const itemData: any = await client.graphql(graphqlOperation(listItems));
-      console.log(itemData.data.listItems.items);
-      const itemsList = itemData.data.listItems.items;
-      setItems(itemsList);
-    } catch (error) {
-      console.log("Error fetching items", error);
-    }
+  const handleAddItem = (newItem: Omit<Item, "id">) => {
+    dispatch(addItem(newItem));
   };
 
-  const addItem = async () => {
-    const newItem = { name: itemName, quantity: itemQuantity };
-    try {
-      const result: any = await client.graphql(
-        graphqlOperation(createItem, { input: newItem })
-      );
-      const createdItem = result.data.createItem;
-
-      setItems([...items, createdItem]);
-      setItemName("");
-      setItemQuantity(0);
-    } catch (error) {
-      console.log("Error adding item", error);
-    }
+  const handleUpdateItem = (updatedItem: Item) => {
+    dispatch(updateItem(updatedItem));
+    setSelectedItem(null);
   };
 
-  const removeItem = (id: number) => {
-    setItems(items.filter((item) => item.id !== id));
+  const handleDeleteItem = (item: Item) => {
+    dispatch(deleteItem(item));
   };
+
+  const handleEditItem = (item: Item) => {
+    setSelectedItem(item);
+  };
+
+  const clearSelectedItem = () => {
+    setSelectedItem(null);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h2>Inventory</h2>
-      <input
-        type="text"
-        placeholder="Item Name"
-        value={itemName}
-        onChange={(e) => setItemName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Quantity"
-        value={itemQuantity}
-        onChange={(e) => setItemQuantity(Number(e.target.value))}
-      />
-      <button onClick={addItem}>Add Item</button>
-
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            {item.name} - {item.quantity}
-            <button onClick={() => removeItem(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="md" style={{ marginTop: "20px" }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Inventory Management
+      </Typography>
+      <ItemForm selectedItem={selectedItem} onClear={clearSelectedItem} />
+      <ItemList onEdit={handleEditItem} onDelete={handleDeleteItem} />
+    </Container>
   );
 };
+
+// Handler Functions
+//   const handleEditItem = (item: Item) => {
+//     setSelectedItem(item);
+//   };
+//   const clearSelectedItem = () => {
+//     setSelectedItem(null);
+//   };
+//   const handleDelete = async (item: Item) => {
+//     try {
+//       await itemService.deleteItem(item); // Pass the full item for deletion
+//       fetchItems(); // Refresh the items after deletion
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting item:", error);
+//     }
+//   };
+
+//   const fetchItems = async () => {
+//     const allItems = await DataStore.query(Item);
+//     setItems(allItems);
+//   };
+
+//   return (
+//     <Container maxWidth="md" style={{ marginTop: "20px" }}>
+//       <Typography variant="h4" component="h1" gutterBottom>
+//         Inventory Management
+//       </Typography>
+//       <ItemForm selectedItem={selectedItem} onClear={clearSelectedItem} />{" "}
+//       {/* Form for creating items */}
+//       <ItemList onEdit={handleEditItem} onDelete={handleDelete} />{" "}
+//       {/* The list displaying the items */}
+//     </Container>
+//   );
+// };
 
 export default Inventory;

@@ -11,6 +11,14 @@
 # production
 /build
 
+node_modules/
+dist/
+build/
+amplify/backend/awscloudformation/
+aws-exports.js
+.env
+*.log
+
 # misc
 .DS_Store
 .env.local
