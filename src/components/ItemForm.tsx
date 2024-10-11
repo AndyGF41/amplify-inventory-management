@@ -99,8 +99,6 @@ const ItemForm: React.FC<ItemFormProps> = ({ selectedItem, onClear }) => {
 
     if (selectedItem) {
       dispatch(updateItem({ ...selectedItem, ...itemData }));
-      console.log("updated item", selectedItem);
-      console.log("QUANTITY item", quantity);
       onClear();
     } else {
       dispatch(addItem(new Item(itemData)));

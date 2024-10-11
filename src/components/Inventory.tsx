@@ -47,8 +47,13 @@ const Inventory: React.FC = () => {
     setSelectedItem(null);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) {
+    console.log("Loading is true:", loading);
+    return <div>Loading...</div>;
+  } else if (error) {
+    console.log("Error is:", error);
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <Container maxWidth="md" style={{ marginTop: "20px" }}>
