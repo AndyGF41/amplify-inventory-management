@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import ItemForm from "./ItemForm";
 import ItemList from "./ItemList";
 import { Item } from "../models";
-import { itemService } from "../services/ItemService";
-import { DataStore } from "@aws-amplify/datastore";
 import { Container, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
