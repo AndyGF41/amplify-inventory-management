@@ -7,7 +7,6 @@ import {
   useAuthenticator,
 } from "@aws-amplify/ui-react";
 import Inventory from "@mui/icons-material/Inventory";
-import { Button, Link } from "@mui/material";
 
 const authComponents = {
   Header() {
