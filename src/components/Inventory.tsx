@@ -5,44 +5,53 @@ import ItemList from "./ItemList";
 import { Item } from "../models";
 import { Container, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import {
-  fetchItems,
-  addItem,
-  updateItem,
-  deleteItem,
-} from "../features/inventory/inventorySlice";
+import { fetchItems, deleteItem } from "../features/inventory/inventorySlice";
 
 const Inventory: React.FC = () => {
   // const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   // const [items, setItems] = useState<Item[]>([]);
+  const predefinedCategories = [
+    "Electronics",
+    "Smartphones",
+    "Laptops",
+    "Appliances",
+    "Accessories",
+  ];
 
   const dispatch = useAppDispatch();
-  const { items, loading, error } = useAppSelector((state) => state.inventory);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const { loading, error, selectedItem } = useAppSelector(
+    (state) => state.inventory
+  );
+  // const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [itemToBeEdited, setItemToBeEdited] = useState<Item | null>(null);
+  const [categories, setCategories] = useState(predefinedCategories); // State for categories
 
   useEffect(() => {
     dispatch(fetchItems());
+    setItemToBeEdited(selectedItem);
   }, [dispatch]);
 
-  const handleAddItem = (newItem: Omit<Item, "id">) => {
-    dispatch(addItem(newItem));
-  };
+  // const handleAddItem = (newItem: Omit<Item, "id">) => {
+  //   dispatch(addItem(newItem));
+  // };
 
-  const handleUpdateItem = (updatedItem: Item) => {
-    dispatch(updateItem(updatedItem));
-    setSelectedItem(null);
-  };
+  // const handleUpdateItem = (updatedItem: Item) => {
+  //   dispatch(updateItem(updatedItem));
+  //   setSelectedItem(null);
+  // };
 
   const handleDeleteItem = (item: Item) => {
     dispatch(deleteItem(item));
   };
 
   const handleEditItem = (item: Item) => {
-    setSelectedItem(item);
+    // setSelectedItem(item);
+    setItemToBeEdited(item);
   };
 
   const clearSelectedItem = () => {
-    setSelectedItem(null);
+    setItemToBeEdited(null);
+    // setSelectedItem(null);
   };
 
   if (loading) {
@@ -58,8 +67,12 @@ const Inventory: React.FC = () => {
       <Typography variant="h4" component="h1" gutterBottom>
         Inventory Management
       </Typography>
-      <ItemForm selectedItem={selectedItem} onClear={clearSelectedItem} />
-      <ItemList onEdit={handleEditItem} onDelete={handleDeleteItem} />
+      <ItemForm
+        // selectedItem={itemToBeEdited}
+        categories={categories}
+        onClear={clearSelectedItem}
+      />
+      {/* <ItemList onEdit={handleEditItem} onDelete={handleDeleteItem} /> */}
     </Container>
   );
 };

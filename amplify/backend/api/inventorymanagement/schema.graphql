@@ -6,6 +6,19 @@ input AMPLIFY {
 type Item @model {
   id: ID!
   name: String!
+  description: String!
+  price: Float!
+  cost: Float!
+  discountPrice: Float
+  currency: String
+  categorySet: [String!]! # List of category names (tags)
+  location: String!
+  attributes: AWSJSON
   quantity: Int!
   thumbnailUrl: String!
+}
+
+type Category @model {
+  id: ID!
+  name: String!
 }

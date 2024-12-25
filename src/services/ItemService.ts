@@ -9,6 +9,12 @@ class ItemService {
         name: newItem.name,
         quantity: newItem.quantity,
         thumbnailUrl: newItem.thumbnailUrl,
+        description: newItem.description,
+        price: newItem.price,
+        cost: newItem.cost,
+        location: newItem.location,
+        attributes: newItem.attributes,
+        categorySet: newItem.categorySet,
         // Do NOT include createdAt or updatedAt here
       });
       const createdItem = await DataStore.save(item);

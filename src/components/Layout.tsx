@@ -6,6 +6,8 @@ import {
   Container,
   useMediaQuery,
   useTheme,
+  Stack,
+  Button,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import DrawerComponent from "./Drawer";
@@ -46,15 +48,35 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          bgcolor: "background.default",
+          // bgcolor: "red",
           p: 3,
           // marginLeft: `${drawerWidth}px`,
         }}
       >
         <Toolbar />
-        <Container>
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12 }}>
+        <Container
+          sx={
+            {
+              // bgcolor: "blue",
+              // marginLeft: `${drawerWidth}px`,
+            }
+          }
+        >
+          <Grid
+            container
+            spacing={3}
+            sx={
+              {
+                // bgcolor: "green",
+                // marginLeft: `${drawerWidth}px`,
+              }
+            }
+          >
+            <Grid
+              size={{
+                xs: 12,
+              }}
+            >
               {children}{" "}
               {/* This is where the forms and list will be rendered */}
             </Grid>

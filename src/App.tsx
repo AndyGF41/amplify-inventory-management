@@ -12,6 +12,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Dashboard from "./components/Dashboard";
 import Orders from "./components/Orders";
+import Products from "./components/Products";
 import Settings from "./components/Settings";
 import { authComponents, authFormFields } from "./components/Auth";
 import authTheme from "./style/themes/authTheme";
@@ -61,6 +62,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/inventory" element={<Inventory />} />
+                <Route path="/products" element={<Products />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/settings" element={<Settings />} />

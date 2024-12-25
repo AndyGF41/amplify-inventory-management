@@ -47,6 +47,7 @@ const DrawerComponent = ({
           {[
             { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
             { text: "Inventory", icon: <InventoryIcon />, path: "/inventory" },
+            { text: "Products", icon: <InventoryIcon />, path: "/products" },
             { text: "Orders", icon: <ShoppingCartIcon />, path: "/orders" },
             { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
           ].map((item) => (

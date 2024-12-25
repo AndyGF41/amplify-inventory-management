@@ -11,7 +11,6 @@ import Inventory from "@mui/icons-material/Inventory";
 const authComponents = {
   Header() {
     const { tokens } = useTheme();
-    console.log(tokens.colors);
     return (
       <View textAlign="center" padding={tokens.space.large}>
         <Inventory />
@@ -142,8 +141,6 @@ const authComponents = {
   },
   ForgotPassword: {
     Header() {
-      const { tokens } = useTheme();
-
       return <Heading level={3}>Enter Information:</Heading>;
     },
   },

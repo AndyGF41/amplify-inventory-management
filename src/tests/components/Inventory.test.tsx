@@ -43,7 +43,9 @@ test("renders Inventory Management title", async () => {
 test("renders loading state", () => {
   const store = configureStore({
     reducer: { inventory: inventoryReducer },
-    preloadedState: { inventory: { items: [], loading: true, error: null } },
+    preloadedState: {
+      inventory: { items: [], loading: true, error: null, selectedItem: null },
+    },
   });
 
   renderWithStore(store);
@@ -58,6 +60,7 @@ test("renders error state", async () => {
         items: [],
         loading: false,
         error: "Error fetching items",
+        selectedItem: null,
       },
     },
   });

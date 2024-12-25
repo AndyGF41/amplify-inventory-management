@@ -7,12 +7,14 @@ interface InventoryState {
   items: Item[];
   loading: boolean;
   error: string | null;
+  selectedItem: Item | null;
 }
 
 const initialState: InventoryState = {
   items: [],
   loading: false,
   error: null,
+  selectedItem: null,
 };
 
 export const fetchItems = createAsyncThunk<
@@ -52,6 +54,9 @@ const inventorySlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setSelectedItem: (state, action) => {
+      state.selectedItem = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,6 +87,6 @@ const inventorySlice = createSlice({
       });
   },
 });
-export const { reset } = inventorySlice.actions;
+export const { reset, setSelectedItem } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

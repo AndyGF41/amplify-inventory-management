@@ -7,6 +7,8 @@ import {
   Avatar,
   Badge,
   InputBase,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -14,11 +16,26 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
+import { signOut } from "aws-amplify/auth";
 
 interface NavbarProps {
   onDrawerToggle: () => void;
 }
 const Navbar = ({ onDrawerToggle }: NavbarProps) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = async () => {
+    handleMenuClose();
+    await signOut();
+    window.location.reload();
+  };
   return (
     <AppBar
       position="fixed"
@@ -74,9 +91,18 @@ const Navbar = ({ onDrawerToggle }: NavbarProps) => {
         </IconButton>
 
         {/* User Avatar */}
-        <IconButton sx={{ ml: 1 }}>
+        <IconButton sx={{ ml: 1 }} onClick={handleAvatarClick}>
           <Avatar alt="User Name" src="/path-to-user-avatar.jpg" />
         </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
